@@ -3,15 +3,17 @@ class School:
     district: str
     school_level: str
     school_id:int
+    students:int
 
-    def __init__(self, name: str, district: str, school_level: str, school_id: int) -> None:
+    def __init__(self, name: str, district: str, school_level: str, school_id: int ,students: int) -> None:
         self.name = name
         self.district = district
         self.school_level = school_level
         self.school_id = school_id
+        self.students = students
 
     def __str__(self) -> str:
-        return f"*school* ID:{self.school_id} [{self.name}] {self.school_level} ({self.district})"
+        return f"*school* ID:{self.school_id} [{self.name}] {self.school_level} ({self.district}) Num of students: {self.students}"
 
     def __eq__(self, other: object) -> bool:
         return isinstance(other, School) and self.school_id == other.school_id
@@ -79,7 +81,8 @@ if __name__ == '__main__':
         name="SZUAI",
         school_level="alt isk",
         school_id=2343,#int
-        district="Szobi ut"
+        district="Szobi ut",
+        students=210
     )
     passp = Passport(
         passport_number="123123123",

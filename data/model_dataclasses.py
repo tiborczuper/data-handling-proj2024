@@ -6,6 +6,7 @@ class School:
     name: str = field(compare=False)
     district: str = field(compare=True)
     school_level: str = field(compare=True)
+    students: int = field(compare=True)
 
 @dataclass(unsafe_hash=True)
 class Passport:

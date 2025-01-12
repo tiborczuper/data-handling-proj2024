@@ -1,11 +1,13 @@
 from faker import Faker
 from faker_education import SchoolProvider
 from model_classes import School, Passport, Person
-import random
+import random as rnd
 from dateutil.relativedelta import relativedelta
 
 
-def generate_schools(n: int) -> list[School]:
+def generate_schools(n: int,
+                     min_num_of_students: int = 100,
+                     max_num_of_students: int = 300) -> list[School]:
 
     fake = Faker()
     fake.add_provider(SchoolProvider)
@@ -16,12 +18,14 @@ def generate_schools(n: int) -> list[School]:
             school_id= i+1,
             name = fake.school_name(),
             district = fake.school_district(),
-            school_level= fake.school_level()
+            school_level= fake.school_level(),
+            students = rnd.randint(min_num_of_students,max_num_of_students)
         )
         schools.append(school)
     return schools
 
-def generate_passport(n: int,ervenyes: int = 5):
+def generate_passport(n: int,
+                      ervenyes: int = 5) -> list[Passport]:
     fake = Faker()
 
     passports = []
@@ -36,14 +40,18 @@ def generate_passport(n: int,ervenyes: int = 5):
         passports.append(pp)
     return passports
 
-def generate_person(n: int, passports: list[Passport],schools: list[School], lang = "hu_HU"):
+def generate_person(n: int,
+                    passports: list[Passport],
+                    schools: list[School],
+                    lang = "hu_HU",min_age: int = 18,
+                    max_age: int = 25) -> list[Person]:
     fake = Faker(lang)
 
     persons = []
     for i in range(n):
 
-        school_numb = random.choice(schools).school_id
-        bday = fake.date_of_birth(minimum_age=18,maximum_age=25)
+        school_numb = rnd.choice(schools).school_id
+        bday = fake.date_of_birth(minimum_age=min_age,maximum_age=max_age)
         id = passports[i].passport_number
 
         person = Person(

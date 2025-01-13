@@ -1,10 +1,10 @@
 import csv
 from typing import List
 from generator import generate_schools, generate_passport, generate_person
-from model_classes import School, Passport, Person
+from model_dataclasses import School, Passport, Person
 
 #writing
-def write_school(filename: str, schools: List['School']):
+def write_school_csv(filename: str, schools: List['School']):
     with open(filename, mode='w', newline='') as file:
         writer = csv.writer(file)
 
@@ -14,7 +14,7 @@ def write_school(filename: str, schools: List['School']):
         for school in schools:
             writer.writerow([school.school_id, school.name, school.district, school.school_level, school.students])
 
-def write_passport(filename: str, passports: List['Passport']):
+def write_passport_csv(filename: str, passports: List['Passport']):
     with open(filename, mode='w', newline='') as file:
         writer = csv.writer(file)
 
@@ -24,7 +24,7 @@ def write_passport(filename: str, passports: List['Passport']):
         for passport in passports:
             writer.writerow([passport.passport_number, passport.validity, passport.valid_from])
 
-def write_person(filename: str, persons: List['Person']):
+def write_person_csv(filename: str, persons: List['Person']):
     with open(filename, mode='w', newline='') as file:
         writer = csv.writer(file)
 
@@ -36,7 +36,7 @@ def write_person(filename: str, persons: List['Person']):
 
 
 #reading
-def read_school(filename: str):
+def read_school_csv(filename: str):
     schools = []
 
     with open(filename, mode='r') as file:
@@ -52,7 +52,7 @@ def read_school(filename: str):
 
     return schools
 
-def read_passport(filename: str):
+def read_passport_csv(filename: str):
     passports = []
 
     with open(filename, mode='r') as file:
@@ -65,7 +65,7 @@ def read_passport(filename: str):
                                       valid_from=sor[2]))
     return passports
 
-def read_person(filename: str):
+def read_person_csv(filename: str):
     persons = []
 
     with open(filename, mode='r') as file:
@@ -83,23 +83,23 @@ def read_person(filename: str):
 if __name__ == '__main__':
 
     schools = generate_schools(3)
-    w_schools = write_school('schools.csv', schools)
-    r_schools = read_school('schools.csv')
+    w_schools = write_school_csv('schools.csv', schools)
+    r_schools = read_school_csv('schools.csv')
     for v in r_schools:
         print(v)
 
     print()
 
     passports = generate_passport(3)
-    w_passports = write_passport('passports.csv', passports)
-    r_passports = read_passport('passports.csv')
+    w_passports = write_passport_csv('passports.csv', passports)
+    r_passports = read_passport_csv('passports.csv')
     for v in r_passports:
         print(v)
 
     print()
 
     persons = generate_person(3,schools=schools, passports=passports)
-    w_persons = write_person('persons.csv', persons)
-    r_persons = read_person('persons.csv')
+    w_persons = write_person_csv('persons.csv', persons)
+    r_persons = read_person_csv('persons.csv')
     for v in r_persons:
         print(v)

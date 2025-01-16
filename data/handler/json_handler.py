@@ -30,9 +30,8 @@ if __name__ == '__main__':
     schools = generate_schools(n)
     passports = generate_passport(n)
     person = generate_person(n,passports=passports,schools=schools)
-    w_json = write_json('json.json', schools=schools,passports=passports,persons=person)
+    w_json = write_json('data.json', schools=schools,passports=passports,persons=person)
 
-    r_json = read_json('json.json')
-
+    r_json = read_json('data.json')
     for v in r_json:
         print(v)
